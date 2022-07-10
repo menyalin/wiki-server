@@ -12,20 +12,20 @@ export class GroupService {
     return await this.GroupModel.find().sort('listIndex').lean()
   }
 
-  async getById(id: string): Promise<Group> {
-    return await this.GroupModel.findById(new Types.ObjectId(id)).lean()
+  async getById(id: Types.ObjectId): Promise<Group> {
+    return await this.GroupModel.findById(id).lean()
   }
 
   async create(body: CreateGroupDto): Promise<Group> {
     return await this.GroupModel.create(body)
   } 
 
-  async update(id: string, body: CreateGroupDto): Promise<Group> {
-    return await this.GroupModel.findByIdAndUpdate(new Types.ObjectId(id), body, {returnDocument: 'after'})
+  async update(id: Types.ObjectId, body: CreateGroupDto): Promise<Group> {
+    return await this.GroupModel.findByIdAndUpdate(id, body, { returnDocument: 'after' })
   }
 
-  async deleteById(id: string): Promise<void> {
-    await this.GroupModel.deleteOne({_id: new Types.ObjectId(id)})
+  async deleteById(id: Types.ObjectId): Promise<void> {
+    await this.GroupModel.deleteOne({ _id: id })
   }
 
 

@@ -1,7 +1,9 @@
 import { Controller, Post, Body, Put, Param, Get, HttpCode, Delete } from '@nestjs/common';
+import { ParseObjectIdPipe } from 'src/pipes/parseObjectIdPipe';
 import { CreateGroupDto } from './dto/createGroup.dto';
 import { GroupService } from './group.service';
 import { Group } from './schemas/group.schema';
+import { Types} from 'mongoose'
 
 @Controller('groups')
 export class GroupController {
@@ -13,7 +15,7 @@ export class GroupController {
   }
 
   @Put(':id')
-  async update(@Param() id: string, @Body() body: CreateGroupDto ): Promise<Group>{
+  async update(@Param('id', ParseObjectIdPipe) id: Types.ObjectId, @Body() body: CreateGroupDto ): Promise<Group>{
     return await this.groupService.update(id, body)
   }
 
@@ -23,13 +25,13 @@ export class GroupController {
   }
 
   @Get(':id')
-  async getById(@Param() id: string): Promise<Group> {
+  async getById(@Param('id', ParseObjectIdPipe) id: Types.ObjectId): Promise<Group> {
     return await this.groupService.getById(id)
   }
 
   @Delete(':id')
   @HttpCode(204)
-  async deleteById(@Param() id: string): Promise<void> {
+  async deleteById(@Param('id', ParseObjectIdPipe) id: Types.ObjectId): Promise<void> {
     await this.groupService.deleteById(id)
   }
 

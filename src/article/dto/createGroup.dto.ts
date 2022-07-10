@@ -1,3 +1,4 @@
 export interface CreateGroupDto {
-  title: string
+  title: string,
+  listIndex?: number
 }
