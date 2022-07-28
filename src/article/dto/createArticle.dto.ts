@@ -1,4 +1,4 @@
-import { MaxLength, IsInt, Min, Max, IsString, validate } from 'class-validator'
+import { IsInt, Min, Max, IsString, IsEmpty } from 'class-validator'
 
 export class CreateArticleDto {
   
@@ -10,7 +10,6 @@ export class CreateArticleDto {
   @Max(1000)
   listIndex?: number
 
-  @IsString()
   group?: string
 
   @IsString()

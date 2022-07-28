@@ -16,7 +16,7 @@ export class Article {
   listIndex: number
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Group' })
-  group: Group
+  group: Group | string | null
 
   @Prop({ required: true, unique: true, lowercase: true })
   slug: string
@@ -26,6 +26,9 @@ export class Article {
 
   @Prop({ required: true })
   content: string
+
+  @Prop({default: true})
+  published: boolean
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article)

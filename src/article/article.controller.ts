@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param, Get, HttpCode, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Get, HttpCode, Delete, Query } from '@nestjs/common';
 import { ParseObjectIdPipe } from 'src/pipes/parseObjectIdPipe';
 import { CreateArticleDto } from './dto/createArticle.dto';
 import { ArticleService } from './article.service';
@@ -20,8 +20,14 @@ export class ArticleController {
   }
 
   @Get()
-  async getAll(): Promise<Article[]> {
+  async getAll(@Query('slug') slug: string): Promise<Article | Article[]> {
+    if (slug) return await this.articleService.getBySlug(slug)  
     return await this.articleService.getAll()
+  }
+
+  @Get('first')
+  async getFirst(): Promise<Article> {
+    return await this.articleService.getFirst()
   }
 
   @Get(':id')

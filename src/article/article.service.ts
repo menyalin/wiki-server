@@ -16,6 +16,14 @@ export class ArticleService {
     return await this.ArticleModel.findById(id).lean()
   }
 
+  async getFirst():Promise<Article> {
+    return await this.ArticleModel.findOne({published: true}).sort({listInted: 1}).limit(1).lean()
+  }s
+
+  async getBySlug(slug: string): Promise<Article> {
+    return await this.ArticleModel.findOne({slug}).lean()
+  }
+
   async create(body: CreateArticleDto): Promise<Article> {
     return await this.ArticleModel.create(body)
   } 

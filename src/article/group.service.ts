@@ -1,6 +1,6 @@
 import { Model, Types } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose'
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Group, GroupDocument } from './schemas/group.schema';
 import { CreateGroupDto } from './dto/createGroup.dto';
 

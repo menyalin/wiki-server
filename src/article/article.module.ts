@@ -6,11 +6,13 @@ import { ArticleService } from './article.service'
 import { GroupService } from './group.service'
 import { GroupController } from './group.controller'
 import { ArticleController } from './article.controller'
+import { MenuController } from './menu.controller'
+import { MenuService } from './menu.service'
 
 @Module({
   imports: [MongooseModule.forFeature([{name: 'Group', schema: GroupSchema}, {name: 'Article', schema: ArticleSchema}])],
-  providers: [ArticleService, GroupService],
-  controllers: [GroupController, ArticleController],
+  providers: [ArticleService, GroupService, MenuService],
+  controllers: [GroupController, ArticleController, MenuController],
   
 })
 export class ArticleModule {}
