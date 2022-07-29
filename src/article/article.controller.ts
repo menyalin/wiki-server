@@ -20,7 +20,8 @@ export class ArticleController {
   }
 
   @Get()
-  async getAll(@Query('slug') slug: string): Promise<Article | Article[]> {
+  async getAll(@Query('slug') slug: string, @Query('term') term: string): Promise<Article | Article[]> {
+    if (term) return await this.articleService.searchByTerm(term)
     if (slug) return await this.articleService.getBySlug(slug)  
     return await this.articleService.getAll()
   }

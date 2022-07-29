@@ -31,4 +31,17 @@ export class Article {
   published: boolean
 }
 
-export const ArticleSchema = SchemaFactory.createForClass(Article)
+const ArticleSchema = SchemaFactory.createForClass(Article)
+
+ArticleSchema.index({title: 'text', description: 'text', content: 'text'}, {
+     weights: {
+       title: 5,
+       description: 8,
+       content: 5
+     },
+     name: "TextIndex",
+     default_language: "russian"
+   }
+   )
+
+export { ArticleSchema }

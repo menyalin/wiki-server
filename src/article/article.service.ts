@@ -8,6 +8,18 @@ import { CreateArticleDto } from './dto/createArticle.dto';
 export class ArticleService {
   constructor(@InjectModel('Article') private ArticleModel: Model<ArticleDocument> ) {}
 
+  async searchByTerm(term: string): Promise<Article[]> {
+    return await this.ArticleModel.find({
+        published: true,
+        $text: {
+          $search: term,
+          $language: 'russian',
+        },
+      },
+      { score: { $meta: 'textScore' } },
+    ).sort({ score: { $meta: 'textScore' } })
+  }
+  
   async getAll(): Promise<Article[]> {
     return await this.ArticleModel.find().sort('listIndex').lean()
   }
@@ -18,7 +30,7 @@ export class ArticleService {
 
   async getFirst():Promise<Article> {
     return await this.ArticleModel.findOne({published: true}).sort({listInted: 1}).limit(1).lean()
-  }s
+  }
 
   async getBySlug(slug: string): Promise<Article> {
     return await this.ArticleModel.findOne({slug}).lean()
